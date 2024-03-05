@@ -1,0 +1,34 @@
+{
+  "name": "turo-blog",
+  "version": "0.0.1",
+  "dependencies": {
+    "@astrojs/check": "^0.5.6",
+    "@astrojs/cloudflare": "^9.0.2",
+    "@astrojs/mdx": "^2.1.1",
+    "@astrojs/rss": "^4.0.5",
+    "@astrojs/sitemap": "^3.1.1",
+    "@astrojs/tailwind": "^5.1.0",
+    "@astropub/md": "^0.4.0",
+    "@libsql/client": "^0.5.2",
+    "astro": "^4.4.9",
+    "drizzle-kit": "^0.20.14",
+    "prettier": "^3.2.5",
+    "prettier-plugin-astro": "^0.13.0",
+    "prettier-plugin-tailwindcss": "^0.5.11",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.3",
+    "uninstall": "^0.0.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.10",
+    "daisyui": "latest"
+  }
+}

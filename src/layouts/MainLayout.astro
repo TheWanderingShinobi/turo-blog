@@ -1,0 +1,25 @@
+---
+// component import
+import BaseHead from '../components/BaseHead.astro'
+import Footer from '../components/Footer.astro'
+import NavBar from '../components/Nav.astro'
+
+interface Props {
+	title: string
+	description: string
+	image?: string
+}
+
+const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props
+---
+
+<html data-theme="mytheme" lang="en">
+	<BaseHead {title} {description} {image} />
+	<body class="font-poppins bg-secondary">
+		<NavBar />
+		<main>
+			<slot> Default Text</slot>
+		</main>
+		<Footer />
+	</body>
+</html>
