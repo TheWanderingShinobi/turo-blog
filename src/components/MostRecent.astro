@@ -3,7 +3,6 @@ import type { Blog } from '../lib/types'
 import { client } from '../lib/tursoDb'
 import FormattedDate from '../components/FormattedDate.astro'
 import type { CollectionEntry } from 'astro:content'
-import Tags from './Tags.astro'
 
 let posts: Blog[] = []
 try {
@@ -39,34 +38,40 @@ interface Props {
 }
 ---
 
-<div class="mx-auto mt-10 max-w-md">
-	<div class="overflow-hidden rounded-lg bg-white shadow-lg">
-		{
-			posts.map((post) => (
-				<>
-					<a href={`/post/${post.slug}/`}>{post.title}</a>
-					<img
-						src={post.hero}
-						alt="Article Image"
-						class="h-48 w-full object-cover transition duration-300 ease-in-out hover:opacity-75"
-					/>
-				</>
-			))
-		}
-	</div>
-	<div class="p-6">
-		{
-			posts.map((post) => (
-				<>
-					<h2 class="mb-2 text-2xl font-semibold">
-						<a href={`/post/${post.slug}/`}>{post.title}</a>
-					</h2>
-					<p class="mb-4 text-sm text-gray-600">
-						<FormattedDate date={post.publish_date || post.created_at} />
-					</p>
-					<Tags tags={post.tags} />
-				</>
-			))
-		}
+<div class="relative inline-block w-full cursor-pointer rounded-2xl sm:w-auto">
+	{
+		posts.map((post) => (
+			<>
+				<a href={`/post/${post.slug}/`}>{post.title}</a>
+				<img src={post.hero} alt="Article Image" class="h-auto w-full rounded-2xl" />
+			</>
+		))
+	}
+	<div
+		class="absolute inset-0 flex flex-col items-center justify-center rounded-2xl bg-black text-center text-white opacity-80 transition duration-300 ease-in-out hover:opacity-75"
+	>
+		<div>
+			{
+				posts.map((post) => (
+					<>
+						<h2 class="text-2xl font-semibold sm:text-3xl">{post.title}</h2>
+						<p class="mt-4 text-xl">
+							<FormattedDate date={post.publish_date || post.created_at} />
+						</p>
+					</>
+				))
+			}
+
+			<!-- Tags with rounded border -->
+			<div class="mt-4 flex justify-center">
+				{
+					posts.map((post) => (
+						<>
+							<span class="mr-2 rounded-full border px-2 py-1 text-xs text-white">{post.tags}</span>
+						</>
+					))
+				}
+			</div>
+		</div>
 	</div>
 </div>

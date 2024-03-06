@@ -19,6 +19,8 @@ export interface Author {
     slug: string;
     content?: string;
     hero: string;
+    tags?: string;
+    index?: number;
     author?: Author;
     created_at: number;
     publish_date?: number;
