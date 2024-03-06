@@ -13,9 +13,10 @@ interface Props {
 const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props
 ---
 
+<!doctype html>
 <html data-theme="mytheme" lang="en">
 	<BaseHead {title} {description} {image} />
-	<body class="font-poppins bg-secondary">
+	<body class="bg-secondary font-poppins">
 		<NavBar />
 		<main>
 			<slot> Default Text</slot>

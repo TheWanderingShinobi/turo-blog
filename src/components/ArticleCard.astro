@@ -1,0 +1,71 @@
+---
+import { formatDate } from '../utils'
+import type { Blog } from '../lib/types'
+import { client } from '../lib/tursoDb'
+import FormattedDate from '../components/FormattedDate.astro'
+import type { CollectionEntry } from 'astro:content'
+import Tags from './Tags.astro'
+
+let posts: Blog[] = []
+try {
+	const allPostsResponse = await client.execute(
+		'select posts.title, posts.description, posts.slug, posts.hero, authors.first_name, authors.last_name, authors.slug as author_slug, authors.avatar, posts.content, posts.created_at from posts left join authors on authors.id = posts.author_id order by posts.created_at desc;'
+	)
+	const allPosts = allPostsResponse.rows
+	posts = allPosts.map((post: any): Blog => {
+		return {
+			published: false,
+			title: post.title,
+			description: post.description,
+			slug: post.slug,
+			hero: post.hero,
+			created_at: post.created_at,
+			author: {
+				first_name: post.first_name,
+				last_name: post.last_name,
+				slug: post.slug,
+				avatar: post.avatar
+			}
+		}
+	})
+} catch (error) {
+	// TODO: Handle error and notify user
+}
+
+const { article } = Astro.props
+
+interface Props {
+	article: CollectionEntry<'blog'>
+}
+---
+
+<div class="mx-auto mt-10 max-w-md">
+	<div class="overflow-hidden rounded-lg bg-white shadow-lg">
+		{
+			posts.map((post) => (
+				<>
+					<a href={`/post/${post.slug}/`}>{post.title}</a>
+					<img
+						src={post.hero}
+						alt="Article Image"
+						class="h-48 w-full object-cover transition duration-300 ease-in-out hover:opacity-75"
+					/>
+				</>
+			))
+		}
+	</div>
+	<div class="p-6">
+		{
+			posts.map((post) => (
+				<>
+					<h2 class="mb-2 text-2xl font-semibold">
+						<a href={`/post/${post.slug}/`}>{post.title}</a>
+					</h2>
+					<p class="mb-4 text-sm text-gray-600">
+						<FormattedDate date={post.publish_date || post.created_at} />
+					</p>
+				</>
+			))
+		}
+	</div>
+</div>

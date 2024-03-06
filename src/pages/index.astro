@@ -3,12 +3,18 @@ import Layout from '../layouts/MainLayout.astro'
 import RecentPost from '../components/RecentPost.astro'
 import HomeHero from '../components/HomeHero.astro'
 import HomeIntro from '../components/HomeIntro.astro'
+import HomeRecent from '../components/HomeRecent.astro'
+import HomeForm from '../components/HomeForm.astro'
+import ArticleCard from '../components/ArticleCard.astro'
 ---
 
 <Layout title="Home | SelfHostLab" description="See what we have been up to">
 	<main>
 		<HomeHero />
 		<HomeIntro />
+		<ArticleCard />
+		<HomeRecent />
 		<RecentPost />
+		<HomeForm />
 	</main>
 </Layout>
